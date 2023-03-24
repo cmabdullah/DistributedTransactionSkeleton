@@ -1,2 +1,3 @@
-rootProject.name = 'DistributedTransactionSkeleton'
+rootProject.name = 'distributed-transaction-skeleton'
 include 'order'
+include 'kafka-service'
