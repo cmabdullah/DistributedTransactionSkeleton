@@ -1,3 +1,4 @@
 rootProject.name = 'distributed-transaction-skeleton'
 include 'order'
 include 'kafka-service'
+include 'domain-event'
