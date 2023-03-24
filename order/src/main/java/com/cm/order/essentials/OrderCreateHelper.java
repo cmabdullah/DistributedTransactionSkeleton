@@ -13,14 +13,11 @@ import java.time.ZonedDateTime;
 
 @Component
 public class OrderCreateHelper {
-
-	private final OrdersInfoService ordersInfoService;
 	private final OrdersInfoRepository ordersInfoRepository;
 	private final OrderCreatedPaymentRequestMessagePublisher orderCreatedEventDomainEventPublisher;
 
 
-	public OrderCreateHelper(OrdersInfoService ordersInfoService, OrdersInfoRepository ordersInfoRepository, OrderCreatedPaymentRequestMessagePublisher orderCreatedEventDomainEventPublisher) {
-		this.ordersInfoService = ordersInfoService;
+	public OrderCreateHelper(OrdersInfoRepository ordersInfoRepository, OrderCreatedPaymentRequestMessagePublisher orderCreatedEventDomainEventPublisher) {
 		this.ordersInfoRepository = ordersInfoRepository;
 		this.orderCreatedEventDomainEventPublisher = orderCreatedEventDomainEventPublisher;
 	}

@@ -18,17 +18,15 @@ public class OrderController {
 
 	private final OrdersInfoService ordersInfoService;
 
-	private final KafkaProducer kafkaProducer;
-
-	public OrderController(OrdersInfoService ordersInfoService, KafkaProducer kafkaProducer) {
+	public OrderController(OrdersInfoService ordersInfoService) {
 		this.ordersInfoService = ordersInfoService;
-		this.kafkaProducer = kafkaProducer;
 	}
 
 	Random random = new Random();
 	@PostMapping("/orderpost")
 	public ResponseEntity<OrdersInfo> ordersInfo(@RequestBody OrdersInfo createOrderCommand){
 		createOrderCommand.setId(random.nextLong());
+		createOrderCommand.setOrderStatus("CREATED");
 		log.info("order info "+ createOrderCommand);
 		OrdersInfo ordersInfo1 = ordersInfoService.createOrder(createOrderCommand);
 		return ResponseEntity.ok(ordersInfo1);
