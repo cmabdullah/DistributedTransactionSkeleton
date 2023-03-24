@@ -19,5 +19,6 @@ public class OrdersInfo {
 	@Id
 	private Long id;
 	private String productName;
+	private String orderStatus;
 	private int price;
 }
