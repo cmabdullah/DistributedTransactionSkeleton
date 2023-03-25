@@ -13,13 +13,9 @@ public class KafkaProducerClient extends KafkaConfig {
 	private KafkaProducer<String, String> producer;
 
 	public KafkaProducerClient(Map<String, String> producerConfig) {
-		setProducerConfigProperties(producerConfig);
-		initializeKafkaProducer();
+		super(producerConfig);
+		producer = new KafkaProducer<>(super.configProperties);
 		logger.info("KafkaProducerClient config success");
-	}
-
-	public void initializeKafkaProducer() {
-		producer = new KafkaProducer<>(producerConfigProperties);
 	}
 
 

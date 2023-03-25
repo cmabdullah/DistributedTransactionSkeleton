@@ -5,13 +5,12 @@ import java.util.Properties;
 
 public class KafkaConfig {
 
-	Properties producerConfigProperties = new Properties();
+	Properties configProperties = new Properties();
 
-	void setProducerConfigProperties(Map<String, String> producerConfigPropertiesMap) {
-
-		producerConfigPropertiesMap.entrySet().stream()
+	public KafkaConfig(Map<String, String>  configPropertiesMap) {
+		configPropertiesMap.entrySet().stream()
 				.forEach(producerConfig ->
-						producerConfigProperties.setProperty(
+						configProperties.setProperty(
 								producerConfig.getKey(), producerConfig.getValue()));
 	}
 }
