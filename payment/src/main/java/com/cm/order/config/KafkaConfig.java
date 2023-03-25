@@ -3,11 +3,9 @@ package com.cm.order.config;
 import com.cm.config.KafkaConsumerClient;
 import com.cm.config.KafkaProducerClient;
 import com.cm.kafka.*;
-import com.cm.order.ports.input.message.listener.payment.kafka.PaymentResponseKafkaListener;
-import com.cm.order.ports.input.message.listener.payment.kafka.RestaurantApprovalResponseKafkaListener;
+import com.cm.order.ports.input.message.listener.payment.kafka.PaymentRequestKafkaListener;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
 @Component
@@ -15,21 +13,17 @@ public class KafkaConfig {
 
 	private final KafkaProducerClient kafkaProducerClient;
 
-	private final PaymentResponseKafkaListener paymentResponseKafkaListener;
-	private final RestaurantApprovalResponseKafkaListener restaurantApprovalResponseKafkaListener;
+	private final PaymentRequestKafkaListener paymentRequestKafkaListener;
 
-	private final KafkaConsumerClient kafkaConsumerClient1;
+	private final KafkaConsumerClient kafkaConsumerClient;
 
 	@Autowired
 	public KafkaConfig(KafkaProducerClient kafkaProducerClient,
-	                   KafkaConsumerClient kafkaConsumerClient1,
-	                   PaymentResponseKafkaListener paymentResponseKafkaListener,
-	                   RestaurantApprovalResponseKafkaListener restaurantApprovalResponseKafkaListener
-	) {
+	                   KafkaConsumerClient kafkaConsumerClient,
+	                   PaymentRequestKafkaListener paymentRequestKafkaListener) {
 		this.kafkaProducerClient = kafkaProducerClient;
-		this.kafkaConsumerClient1 = kafkaConsumerClient1;
-		this.paymentResponseKafkaListener = paymentResponseKafkaListener;
-		this.restaurantApprovalResponseKafkaListener = restaurantApprovalResponseKafkaListener;
+		this.kafkaConsumerClient = kafkaConsumerClient;
+		this.paymentRequestKafkaListener = paymentRequestKafkaListener;
 	}
 
 	@Bean
@@ -38,7 +32,7 @@ public class KafkaConfig {
 	}
 
 	public KafkaConsumerInitializer getPaymentResponseKafkaConsumerInitializer() {
-		return new KafkaConsumerInitializer(kafkaConsumerClient1, paymentResponseKafkaListener);
+		return new KafkaConsumerInitializer(kafkaConsumerClient, paymentRequestKafkaListener);
 	}
 
 }
