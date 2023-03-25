@@ -1,12 +1,12 @@
-package com.cm.order.ports.input.message.listener.payment;
+package com.cm.order.ports.input.message.listener.payment.kafka;
 
 import com.cm.kafka.KafkaConsumer;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
+@Service
 @Slf4j
-public class KafkaConsumerImpl implements KafkaConsumer {
-
+public class PaymentResponseKafkaListener implements KafkaConsumer {
 	@Override
 	public void receive(String key, String message) {
 		log.info("received key {} and message {}",key, message);

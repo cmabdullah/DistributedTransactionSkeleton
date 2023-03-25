@@ -3,6 +3,7 @@ package com.cm.order.config;
 import com.cm.config.KafkaConsumerClient;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Scope;
 
 import java.util.Map;
 
@@ -10,7 +11,8 @@ import java.util.Map;
 public class KafkaConsumerClientConfig {
 
 	@Bean
-	KafkaConsumerClient KafkaConsumerClient() {
+	@Scope("prototype")
+	KafkaConsumerClient kafkaConsumerClient() {
 		Map<String, String> producerConfig = Map.of(
 				"bootstrap.servers", "127.0.0.1:9092",
 				"key.deserializer", "org.apache.kafka.common.serialization.StringDeserializer",

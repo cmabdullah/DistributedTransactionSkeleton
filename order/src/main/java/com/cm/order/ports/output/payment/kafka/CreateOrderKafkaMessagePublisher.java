@@ -32,6 +32,6 @@ public class CreateOrderKafkaMessagePublisher implements OrderCreatedPaymentRequ
 		} catch (JsonProcessingException e) {
 			throw new RuntimeException(e);
 		}
-		kafkaProducer.send("demo_java", String.valueOf(orderInfo.getId()), payLoad);
+		kafkaProducer.send("payment_request", String.valueOf(orderInfo.getId()), payLoad);
 	}
 }

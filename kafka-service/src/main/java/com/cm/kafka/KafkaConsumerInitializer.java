@@ -22,12 +22,16 @@ public class KafkaConsumerInitializer {
 	}
 
 
-
 	public void spinUp(String topicName) {
+		new Thread(() -> spinUpV2(topicName)).start();
+	}
+
+	public void spinUpV2(String topicName) {
 		org.apache.kafka.clients.consumer.KafkaConsumer<String, String> consumer =
 				kafkaConsumerClient.getConsumer();
 		//subscribe consumer to our topic
 		consumer.subscribe(Collections.singletonList(topicName));
+		logger.info("consuming new {} ", topicName);
 
 		//poll consumer data
 		while (true) {
