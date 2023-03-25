@@ -20,5 +20,6 @@ public class OrdersInfo {
 	private Long id;
 	private String productName;
 	private String orderStatus;
+	private String paymentStatus;
 	private int price;
 }

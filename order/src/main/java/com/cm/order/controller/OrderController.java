@@ -27,6 +27,7 @@ public class OrderController {
 	public ResponseEntity<OrdersInfo> ordersInfo(@RequestBody OrdersInfo createOrderCommand){
 		createOrderCommand.setId(random.nextLong());
 		createOrderCommand.setOrderStatus("CREATED");
+		createOrderCommand.setPaymentStatus("PENDING");
 		log.info("order info "+ createOrderCommand);
 		OrdersInfo ordersInfo1 = ordersInfoService.createOrder(createOrderCommand);
 		return ResponseEntity.ok(ordersInfo1);

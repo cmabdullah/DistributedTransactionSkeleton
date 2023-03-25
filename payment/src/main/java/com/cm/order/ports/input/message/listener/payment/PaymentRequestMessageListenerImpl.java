@@ -9,6 +9,7 @@ public class PaymentRequestMessageListenerImpl implements PaymentRequestMessageL
 	@Override
 	public void completePayment(String paymentRequest) {
 
+		log.info("execution payment");
 	}
 
 	@Override
