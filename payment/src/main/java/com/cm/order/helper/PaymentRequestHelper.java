@@ -36,15 +36,7 @@ public class PaymentRequestHelper {
 		//getCreditEntry() db call
 		//getCreditHistory() db call
 		//persistDbObjects(payment, creditEntry, creditHistories) db call update 3 tables
-		OrdersInfoMessage ordersInfoMessage = null;
-		try {
-			ordersInfoMessage = objectMapper.readValue(paymentRequest, new TypeReference<>() {
-			});
-			ordersInfoMessage.setPaymentStatus("PAID");//dummy data
-			log.info("ordersInfoMessage status is {} ", ordersInfoMessage);
-		} catch (JsonProcessingException e) {
-			log.error("parse failed err: {}", e.getLocalizedMessage());
-		}
+		OrdersInfoMessage ordersInfoMessage = getOrdersInfoMessage(paymentRequest, "PAID");
 		return new PaymentCompletedEvent(ordersInfoMessage, ZonedDateTime.now(ZoneId.of("UTC")), paymentCompletedEventDomainEventPublisher);
 	}
 
@@ -55,15 +47,21 @@ public class PaymentRequestHelper {
 		//getCreditHistory()
 		//persistDbObjects(payment, creditEntry, creditHistories) db call update 3 tables
 
+		OrdersInfoMessage ordersInfoMessage = getOrdersInfoMessage(paymentRequest, "CANCELLED-PAYMENT");
+		return new PaymentCancelledEvent(ordersInfoMessage, ZonedDateTime.now(ZoneId.of("UTC")), paymentCancelledMessagePublisher);
+	}
+
+
+	private OrdersInfoMessage getOrdersInfoMessage(String paymentRequest, String status) {
 		OrdersInfoMessage ordersInfoMessage = null;
 		try {
 			ordersInfoMessage = objectMapper.readValue(paymentRequest, new TypeReference<>() {
 			});
-			ordersInfoMessage.setPaymentStatus("CANCELLED-PAYMENT");//dummy data
+			ordersInfoMessage.setPaymentStatus(status);//dummy data
 			log.info("ordersInfoMessage status is {} ", ordersInfoMessage);
 		} catch (JsonProcessingException e) {
 			log.error("parse failed err: {}", e.getLocalizedMessage());
 		}
-		return new PaymentCancelledEvent(ordersInfoMessage, ZonedDateTime.now(ZoneId.of("UTC")), paymentCancelledMessagePublisher);
+		return ordersInfoMessage;
 	}
 }
