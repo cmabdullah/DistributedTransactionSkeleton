@@ -7,6 +7,8 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Component;
 
 @Slf4j
@@ -18,7 +20,7 @@ public class PaymentCompletedKafkaMessagePublisher implements PaymentCompletedMe
 	private final KafkaProducer kafkaProducer;
 
 	@Autowired
-	public PaymentCompletedKafkaMessagePublisher(ObjectMapper objectMapper, KafkaProducer kafkaProducer) {
+	public PaymentCompletedKafkaMessagePublisher(ObjectMapper objectMapper,@Lazy KafkaProducer kafkaProducer) {
 		this.objectMapper = objectMapper;
 		this.kafkaProducer = kafkaProducer;
 	}
