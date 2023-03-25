@@ -18,7 +18,7 @@ public class CreateOrderKafkaMessagePublisher implements OrderCreatedPaymentRequ
 	public void publish(OrderCreatedEvent domainEvent) {
 		var orderInfo = domainEvent.getOrderInfo();
 
-		kafkaProducer.send("order", orderInfo.getProductName(),
-				String.valueOf(orderInfo.getPrice()), null);
+		kafkaProducer.send("demo_java", String.valueOf(orderInfo.getId()),
+				orderInfo.toString());
 	}
 }

@@ -3,7 +3,12 @@ server:
 
 logging:
   level:
-    org.apache.kafka.clients: INFO
+    org:
+      apache:
+        kafka:
+          clients:
+            NetworkClient: OFF
+    root: INFO
 
 
 spring:
