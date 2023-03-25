@@ -4,12 +4,12 @@ import com.cm.config.KafkaProducerClient;
 import org.apache.kafka.clients.producer.Callback;
 import org.apache.kafka.clients.producer.ProducerRecord;
 import org.apache.kafka.clients.producer.RecordMetadata;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
-import java.io.Serializable;
-import java.util.logging.Logger;
 
 public class KafkaProducerImpl implements KafkaProducer {
-	Logger logger = Logger.getLogger(KafkaProducerImpl.class.getName());
+	Logger logger = LoggerFactory.getLogger(KafkaProducerImpl.class);
 
 
 	private final KafkaProducerClient kafkaProducerClient;
@@ -36,9 +36,9 @@ public class KafkaProducerImpl implements KafkaProducer {
 						"Offset: " + metadata.offset() + "\n" +
 						"Timestamp: " + metadata.timestamp() + "\n" +
 						"");
+				if (exception != null)
+					logger.error(exception.getLocalizedMessage());
 			}
-
-
 		});
 	}
 }
