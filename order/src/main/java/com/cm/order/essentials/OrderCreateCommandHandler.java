@@ -2,7 +2,7 @@ package com.cm.order.essentials;
 
 import com.cm.order.domain.OrdersInfo;
 import com.cm.order.events.OrderCreatedEvent;
-import com.cm.order.ports.output.payment.OrderCreatedPaymentRequestMessagePublisher;
+import com.cm.order.ports.output.message.payment.OrderCreatedPaymentRequestMessagePublisher;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 

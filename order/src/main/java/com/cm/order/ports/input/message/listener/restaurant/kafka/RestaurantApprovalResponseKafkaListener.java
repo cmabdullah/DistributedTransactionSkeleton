@@ -1,4 +1,4 @@
-package com.cm.order.ports.input.message.listener.payment.kafka;
+package com.cm.order.ports.input.message.listener.restaurant.kafka;
 
 import com.cm.kafka.KafkaConsumer;
 import lombok.extern.slf4j.Slf4j;

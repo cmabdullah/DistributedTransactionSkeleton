@@ -1,8 +1,8 @@
-package com.cm.order.ports.output.payment.kafka;
+package com.cm.order.ports.output.message.restaurant.kafka;
 
 import com.cm.kafka.KafkaProducer;
 import com.cm.order.events.OrderPaidEvent;
-import com.cm.order.ports.output.payment.OrderPaidRestaurantRequestMessagePublisher;
+import com.cm.order.ports.output.message.restaurant.OrderPaidRestaurantRequestMessagePublisher;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.extern.slf4j.Slf4j;

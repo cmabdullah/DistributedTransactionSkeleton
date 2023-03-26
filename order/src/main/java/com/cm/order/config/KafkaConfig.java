@@ -4,10 +4,9 @@ import com.cm.config.KafkaConsumerClient;
 import com.cm.config.KafkaProducerClient;
 import com.cm.kafka.*;
 import com.cm.order.ports.input.message.listener.payment.kafka.PaymentResponseKafkaListener;
-import com.cm.order.ports.input.message.listener.payment.kafka.RestaurantApprovalResponseKafkaListener;
+import com.cm.order.ports.input.message.listener.restaurant.kafka.RestaurantApprovalResponseKafkaListener;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
 @Component
