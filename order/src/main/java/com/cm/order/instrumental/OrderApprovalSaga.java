@@ -5,10 +5,13 @@ import com.cm.order.domain.OrdersInfo;
 import com.cm.order.domain.OrdersInfoRepository;
 import com.cm.order.events.EmptyEvent;
 import com.cm.order.events.OrderCancelledEvent;
+import com.cm.order.ports.output.message.payment.OrderCancelledPaymentRequestMessagePublisher;
+import com.cm.order.service.OrdersInfoService;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.extern.slf4j.Slf4j;
+import lombok.val;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -17,11 +20,16 @@ import org.springframework.transaction.annotation.Transactional;
 public class OrderApprovalSaga implements SagaStep<String, EmptyEvent, OrderCancelledEvent>  {
 
 	private final OrdersInfoRepository ordersInfoRepository;
+	private final OrdersInfoService ordersInfoService;
 	private final ObjectMapper objectMapper;
 
-	public OrderApprovalSaga(OrdersInfoRepository ordersInfoRepository, ObjectMapper objectMapper) {
+	private final OrderCancelledPaymentRequestMessagePublisher orderCancelledPaymentRequestMessagePublisher;
+
+	public OrderApprovalSaga(OrdersInfoRepository ordersInfoRepository, OrdersInfoService ordersInfoService, ObjectMapper objectMapper, OrderCancelledPaymentRequestMessagePublisher orderCancelledPaymentRequestMessagePublisher) {
 		this.ordersInfoRepository = ordersInfoRepository;
+		this.ordersInfoService = ordersInfoService;
 		this.objectMapper = objectMapper;
+		this.orderCancelledPaymentRequestMessagePublisher = orderCancelledPaymentRequestMessagePublisher;
 	}
 
 	@Override
@@ -29,7 +37,7 @@ public class OrderApprovalSaga implements SagaStep<String, EmptyEvent, OrderCanc
 	public EmptyEvent process(String data) {
 		//findOrder db call
 		OrdersInfo ordersInfo = getOrder( data);
-		ordersInfo.setOrderStatus("APPROVED-RESTAURANT");
+		ordersInfo.setOrderStatus("SUCCESS");
 		//APPROVED
 		ordersInfoRepository.save(ordersInfo);//saved the approved state
 		log.info("restaurant approval request success, order new status saved {} ", ordersInfo);
@@ -40,7 +48,12 @@ public class OrderApprovalSaga implements SagaStep<String, EmptyEvent, OrderCanc
 	@Transactional
 	public OrderCancelledEvent rollback(String data) {
 		//findOrder
-		return null;
+		OrdersInfo ordersInfo = getOrder( data);
+		ordersInfo.setOrderStatus("CANCELLING");
+		//CANCELLING
+
+		ordersInfoRepository.save(ordersInfo);//saved the CANCELLING state
+		return ordersInfoService.cancelOrderPayment(ordersInfo, orderCancelledPaymentRequestMessagePublisher);
 	}
 
 

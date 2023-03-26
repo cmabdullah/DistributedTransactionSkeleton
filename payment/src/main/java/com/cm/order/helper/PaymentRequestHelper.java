@@ -58,6 +58,7 @@ public class PaymentRequestHelper {
 			ordersInfoMessage = objectMapper.readValue(paymentRequest, new TypeReference<>() {
 			});
 			ordersInfoMessage.setPaymentStatus(status);//dummy data
+			ordersInfoMessage.setOrderStatus(status);
 			log.info("ordersInfoMessage status is {} ", ordersInfoMessage);
 		} catch (JsonProcessingException e) {
 			log.error("parse failed err: {}", e.getLocalizedMessage());

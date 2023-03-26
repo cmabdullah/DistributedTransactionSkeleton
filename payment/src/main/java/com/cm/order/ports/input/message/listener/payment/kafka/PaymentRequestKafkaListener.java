@@ -31,7 +31,7 @@ public class PaymentRequestKafkaListener implements KafkaConsumer {
 			log.info("parsed value is {} ", ordersInfoMessage);
 			if (ordersInfoMessage.getPaymentStatus().equals("PENDING")) {
 				paymentRequestMessageListener.completePayment(message);
-			} else if (ordersInfoMessage.getPaymentStatus().equals("CANCELLED")) {
+			} else if (ordersInfoMessage.getOrderStatus().equals("CANCELLING")) {
 				paymentRequestMessageListener.cancelPayment(message);
 			}
 		} catch (JsonProcessingException e) {
