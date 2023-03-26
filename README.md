@@ -6,3 +6,5 @@
 > kafka-console-consumer --bootstrap-server localhost:9092 --topic payment_request --formatter kafka.tools.DefaultMessageFormatter --property print.timestamp=true --property print.key=true --property print.value=true --from-beginning
 
 > kafka-console-consumer --bootstrap-server localhost:9092 --topic payment-response --formatter kafka.tools.DefaultMessageFormatter --property print.timestamp=true --property print.key=true --property print.value=true --from-beginning
+
+> kafka-console-consumer --bootstrap-server localhost:9092 --topic restaurant-approval-response --formatter kafka.tools.DefaultMessageFormatter --property print.timestamp=true --property print.key=true --property print.value=true --from-beginning

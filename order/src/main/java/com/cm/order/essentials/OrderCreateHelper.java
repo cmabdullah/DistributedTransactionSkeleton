@@ -1,8 +1,10 @@
 package com.cm.order.essentials;
 
+import com.cm.event.publisher.DomainEventPublisher;
 import com.cm.order.domain.OrdersInfoRepository;
 import com.cm.order.events.OrderCreatedEvent;
 import com.cm.order.domain.OrdersInfo;
+import com.cm.order.events.OrderPaidEvent;
 import com.cm.order.ports.output.payment.OrderCreatedPaymentRequestMessagePublisher;
 import com.cm.order.service.OrdersInfoService;
 import org.springframework.stereotype.Component;
